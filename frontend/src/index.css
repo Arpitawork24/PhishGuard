@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Dark Mode Defaults */
+    --bg-primary: #07090e;
+    --bg-secondary: #0c101a;
+    --bg-card: rgba(15, 20, 32, 0.75);
+    --bg-card-solid: #0c101a;
+    --bg-inner: rgba(0, 0, 0, 0.4);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-glow: rgba(56, 189, 248, 0.25);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent-cyan: #06b6d4;
+    --accent-blue: #3b82f6;
+    --accent-purple: #8b5cf6;
+    --threat-safe: #10b981;
+    --threat-suspicious: #f59e0b;
+    --threat-danger: #ef4444;
+  }
+
+  html.light {
+    /* Soft Warm White Light Mode */
+    --bg-primary: #f7f5f0;
+    --bg-secondary: #fdfbf7;
+    --bg-card: rgba(255, 253, 250, 0.95);
+    --bg-card-solid: #fefdfb;
+    --bg-inner: #f1ede4;
+    --border-subtle: rgba(120, 100, 80, 0.14);
+    --border-glow: rgba(2, 132, 199, 0.35);
+    --text-primary: #1c1917;
+    --text-secondary: #44403c;
+    --text-muted: #57534e;
+    --accent-cyan: #0284c7;
+    --accent-blue: #1d4ed8;
+    --accent-purple: #7e22ce;
+    --threat-safe: #047857;
+    --threat-suspicious: #b45309;
+    --threat-danger: #b91c1c;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Smooth Light / Dark Mode transition effect */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              fill 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* View Transition API custom styling for circular reveal */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* Glassmorphism and atmospheric backdrop utilities */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-panel-glow {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glow);
+  box-shadow: 0 0 35px -10px rgba(6, 182, 212, 0.15);
+}
+
+html.light .glass-panel-glow {
+  box-shadow: 0 10px 30px -10px rgba(2, 132, 199, 0.15);
+}
+
+.glow-safe {
+  box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.25);
+}
+
+.glow-warning {
+  box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.25);
+}
+
+.glow-danger {
+  box-shadow: 0 0 45px -5px rgba(239, 68, 68, 0.3);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+/* Atmospheric ambient radial gradients */
+.ambient-gradient {
+  background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.05) 45%, transparent 70%);
+}
+
+html.light .ambient-gradient {
+  background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.06) 0%, rgba(14, 165, 233, 0.04) 45%, transparent 70%);
+}
+
+.ambient-hero {
+  background: radial-gradient(circle at 50% 30%, rgba(6, 182, 212, 0.15) 0%, rgba(99, 102, 241, 0.08) 40%, transparent 70%);
+}
+
+html.light .ambient-hero {
+  background: radial-gradient(circle at 50% 30%, rgba(14, 165, 233, 0.06) 0%, rgba(245, 158, 11, 0.05) 40%, transparent 70%);
+}
